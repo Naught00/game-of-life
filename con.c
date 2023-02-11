@@ -1,22 +1,21 @@
 #include<stdbool.h>
 #include <stdio.h>
 #include<stdlib.h>
+#include <string.h>
 #include<unistd.h>
 #include<time.h>
-#define WIDTH 80
-#define HEIGHT 40
+#include "lake.h"
+#include "seed.h"
 
-int gen(int i, int c, bool dead);
-void display();
 
 //int lake[HEIGHT][WIDTH];
-int lake[HEIGHT][WIDTH] =
-{
-{0,0,1,0,0},
-{1,1,0,1,1},
-{0,1,0,1,0},
-{0,0,1,0,0},
-};
+//int lake[HEIGHT][WIDTH] =
+//{
+//{0,0,1,0,0},
+//{1,1,0,1,1},
+//{0,1,0,1,0},
+//{0,0,1,0,0},
+//};
 
 //int lake[HEIGHT][WIDTH] =
 //{
@@ -27,30 +26,40 @@ int lake[HEIGHT][WIDTH] =
 //};
 int main(int argc, char* argv[]) {
 
+	zerolake();
 	printf("%d\n", lake[0][2]);
-	
-	
-
 	printf("%d\n", gen(12, 11, true));
+	
+	//FILE *f = NULL;
+	//printf("%d\n", argc);
+	//if (argc > 1) {
+	//	FILE* f = fopen(argv[1], "r");
+	//} else {
+	//	FILE* f = fopen("test.txt", "r");
+	//}
 
-	int i, c;
-
-	for (i = 0; i < HEIGHT; i++) {
-		for (c = 0; c < WIDTH; c++) {
-			srand(time(NULL) + c);
-
-			int num =  rand() % 100;
-
-			if (num % 22 == 0) {
-				lake[i][c] = 1;
-			} else {
-				lake[i][c] = 0;
-			}
+	FILE* f = NULL;
+	int speed = 100;
+	bool random = false;
+	if (argc > 1) {
+		if (!strcmp(argv[1], "random")) {
+			random = true;
+		} else {
+			f = fopen(argv[1], "r");
+			speed = atoi(argv[2]);
 		}
+	} else {
+		random = true;
 	}
 
+	if (random) {
+		seed();
+	} else {
+		load_seed(f);
+	}
 
 	int z = 0;
+	int i, c;
 	int new[HEIGHT][WIDTH];
 	for (i = 0; i < HEIGHT; i++) {
 		for (c = 0; c < WIDTH; c++) {
@@ -61,7 +70,8 @@ int main(int argc, char* argv[]) {
 	while (z <= 1000) {
 		system("clear");
 		display();
-		usleep(500 * 1000);
+		printf("Population: %d\n", population());
+		usleep(speed * 1000);
 		for (i = 0; i < HEIGHT; i++) {
 			for (c = 0; c < WIDTH; c++) {
 				if (lake[i][c] == 1) {
@@ -85,78 +95,9 @@ int main(int argc, char* argv[]) {
 		z++;
 	}
 
+	if (f != NULL) {
+		fclose(f);
+	} 
+
 
 }
-
-int gen(int i, int c, bool dead)
-{
-	int arr[8];
-
-	int x;
-
-	for (x = 0; x < 8; x++) {
-		arr[x] = 0;
-	}
-
-	if (lake[i+1][c] == 1) {
-		arr[0] = 1;
-	} 
-	if (lake[i-1][c] == 1) {
-		arr[1] = 1;
-	} 
-	if (lake[i][c+1] == 1) {
-		arr[2] = 1;
-	} 
-	if (lake[i][c-1] == 1) {
-		arr[3] = 1;
-	} 
-	if (lake[i+1][c+1] == 1) {
-		arr[4] = 1;
-	} 
-	if (lake[i+1][c-1] == 1) {
-		arr[5] = 1;
-	} 
-	if (lake[i-1][c+1] == 1) {
-		arr[6] = 1;
-	} 
-	if (lake[i-1][c-1] == 1) {
-		arr[7] = 1;
-	} 
-
-	int total = 0;
-
-	for (x = 0; x < 8; x++) {
-		total += arr[x];
-	}
-
-	if ((total == 2 || total == 3) && !dead) {
-		return 1;
-	} else if (total < 2) {
-		return 0;
-	} else if (total > 3) {
-		return 0;
-	} else if (dead && (total == 3)) {
-		return 1;
-	}
-
-	return 0;
-}
-
-void display() {
-	int i, c;
-	for (i = 0; i < HEIGHT; i++) {
-		for (c = 0; c < WIDTH; c++) {
-			 if (lake[i][c] == 1) {
-				 printf("██");
-			 } else {
-				 printf("  ");
-			 }
-			 if (c == WIDTH-1) {
-				 printf("\n");
-			 }
-		}
-	}
-}
-
-
-

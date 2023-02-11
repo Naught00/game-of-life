@@ -1,3 +1,5 @@
 run:
-	cc con.c
+	cc *.c
 	./a.out
+debug:
+	cc -g *.c
