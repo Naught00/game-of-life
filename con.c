@@ -3,27 +3,45 @@
 #include<stdlib.h>
 #include<unistd.h>
 #include<time.h>
-#define MAX 100
+#define WIDTH 80
+#define HEIGHT 40
 
 int gen(int i, int c, bool dead);
 void display();
 
-int lake[MAX][MAX];
+//int lake[HEIGHT][WIDTH];
+int lake[HEIGHT][WIDTH] =
+{
+{0,0,1,0,0},
+{1,1,0,1,1},
+{0,1,0,1,0},
+{0,0,1,0,0},
+};
 
-int main(void) {
+//int lake[HEIGHT][WIDTH] =
+//{
+//{0,0,0,1,0,0,0},
+//{0,1,1,0,1,1,0},
+//{0,0,1,0,1,0,0},
+//{0,0,0,1,0,0,0}
+//};
+int main(int argc, char* argv[]) {
 
+	printf("%d\n", lake[0][2]);
+	
+	
 
 	printf("%d\n", gen(12, 11, true));
 
 	int i, c;
 
-	for (i = 0; i < MAX; i++) {
-		for (c = 0; c < MAX; c++) {
+	for (i = 0; i < HEIGHT; i++) {
+		for (c = 0; c < WIDTH; c++) {
 			srand(time(NULL) + c);
 
 			int num =  rand() % 100;
 
-			if (num % 5 == 0) {
+			if (num % 22 == 0) {
 				lake[i][c] = 1;
 			} else {
 				lake[i][c] = 0;
@@ -31,24 +49,37 @@ int main(void) {
 		}
 	}
 
+
 	int z = 0;
+	int new[HEIGHT][WIDTH];
+	for (i = 0; i < HEIGHT; i++) {
+		for (c = 0; c < WIDTH; c++) {
+			new[i][c] = lake[i][c];
+		}
+	}
+
 	while (z <= 1000) {
 		system("clear");
 		display();
 		usleep(500 * 1000);
-		for (i = 0; i < MAX; i++) {
-			for (c = 0; c < MAX; c++) {
+		for (i = 0; i < HEIGHT; i++) {
+			for (c = 0; c < WIDTH; c++) {
 				if (lake[i][c] == 1) {
 					if (!gen(i, c, false)) {
 					//	printf("dies\n");
-						lake[i][c] = 0;
+						new[i][c] = 0;
 					}
 				} else {
 					if(gen(i, c, true)) {
 					//	printf("revive\n");
-						lake[i][c] = 1;
+						new[i][c] = 1;
 					}
 				}
+			}
+		}
+		for (i = 0; i < HEIGHT; i++) {
+			for (c = 0; c < WIDTH; c++) {
+				lake[i][c] = new[i][c];
 			}
 		}
 		z++;
@@ -104,7 +135,7 @@ int gen(int i, int c, bool dead)
 		return 0;
 	} else if (total > 3) {
 		return 0;
-	} else if (dead && total == 3) {
+	} else if (dead && (total == 3)) {
 		return 1;
 	}
 
@@ -113,14 +144,14 @@ int gen(int i, int c, bool dead)
 
 void display() {
 	int i, c;
-	for (i = 0; i < MAX; i++) {
-		for (c = 0; c < MAX; c++) {
+	for (i = 0; i < HEIGHT; i++) {
+		for (c = 0; c < WIDTH; c++) {
 			 if (lake[i][c] == 1) {
-				 printf("█");
+				 printf("██");
 			 } else {
-				 printf(" ");
+				 printf("  ");
 			 }
-			 if (c == MAX-1) {
+			 if (c == WIDTH-1) {
 				 printf("\n");
 			 }
 		}
