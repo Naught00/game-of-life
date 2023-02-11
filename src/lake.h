@@ -8,7 +8,7 @@ int gen(int i, int c, bool dead);
 void display();
 void display_debug();
 int population();
-void zerolake();
+void zero_lake();
 extern int lake[HEIGHT][WIDTH];
 
 #endif

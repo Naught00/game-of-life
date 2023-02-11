@@ -7,41 +7,16 @@
 #include "lake.h"
 #include "seed.h"
 
+void simulate(int speed);
 
-//int lake[HEIGHT][WIDTH];
-//int lake[HEIGHT][WIDTH] =
-//{
-//{0,0,1,0,0},
-//{1,1,0,1,1},
-//{0,1,0,1,0},
-//{0,0,1,0,0},
-//};
-
-//int lake[HEIGHT][WIDTH] =
-//{
-//{0,0,0,1,0,0,0},
-//{0,1,1,0,1,1,0},
-//{0,0,1,0,1,0,0},
-//{0,0,0,1,0,0,0}
-//};
-int main(int argc, char* argv[]) {
-
-	zerolake();
-	printf("%d\n", lake[0][2]);
-	printf("%d\n", gen(12, 11, true));
+int main(int argc, char* argv[])
+{
+	zero_lake();
 	
-	//FILE *f = NULL;
-	//printf("%d\n", argc);
-	//if (argc > 1) {
-	//	FILE* f = fopen(argv[1], "r");
-	//} else {
-	//	FILE* f = fopen("test.txt", "r");
-	//}
-
 	FILE* f = NULL;
 	int speed = 100;
 	bool random = false;
-	if (argc > 1) {
+	if (argc > 2) {
 		if (!strcmp(argv[1], "random")) {
 			random = true;
 		} else {
@@ -58,6 +33,16 @@ int main(int argc, char* argv[]) {
 		load_seed(f);
 	}
 
+	simulate(speed);
+
+	if (f != NULL) {
+		fclose(f);
+	} 
+
+}
+
+void simulate(int speed)
+{
 	int z = 0;
 	int i, c;
 	int new[HEIGHT][WIDTH];
@@ -76,12 +61,10 @@ int main(int argc, char* argv[]) {
 			for (c = 0; c < WIDTH; c++) {
 				if (lake[i][c] == 1) {
 					if (!gen(i, c, false)) {
-					//	printf("dies\n");
 						new[i][c] = 0;
 					}
 				} else {
 					if(gen(i, c, true)) {
-					//	printf("revive\n");
 						new[i][c] = 1;
 					}
 				}
@@ -94,10 +77,4 @@ int main(int argc, char* argv[]) {
 		}
 		z++;
 	}
-
-	if (f != NULL) {
-		fclose(f);
-	} 
-
-
 }

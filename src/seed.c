@@ -9,7 +9,6 @@ void seed() {
 	for (i = 0; i < HEIGHT; i++) {
 		for (c = 0; c < WIDTH; c++) {
 			srand(time(NULL) + c);
-
 			int num =  rand() % 100;
 
 			if (num % 17 == 0) {
@@ -23,30 +22,25 @@ void seed() {
 
 void load_seed(FILE* f) 
 {
-    int ch;
-    char c;
-    int line, x, y;
+	char c;
+	int x, y;
 
-    for (y = 0, x = 0; (c = getc(f)) != EOF;) {
+	for (y = 0, x = 0; (c = getc(f)) != EOF;) {
+		if (c == '.' || c == '.') {
+			lake[y][x] = 0;
+			x++;
+		} 
+		if (c == 'O' || c == '0') {
+			lake[y][x] = 1;
+			x++;
+		} 
 
-	
-	putchar(c);
-
-	if (c == '.' || c == '.') {
-		lake[y][x] = 0;
-		x++;
-	} 
-	if (c == 'O' || c == '0') {
-		lake[y][x] = 1;
-		x++;
-	} 
-
-	if (c == '\n') {
-		y++;
-		x = 0;
+		if (c == '\n') {
+			y++;
+			x = 0;
+		}
 	}
-    }
-    
-    rewind(f);
+
+	rewind(f);
 
 }

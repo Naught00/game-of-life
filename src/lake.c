@@ -3,11 +3,9 @@
 
 int lake[HEIGHT][WIDTH];
 
-
 int gen(int i, int c, bool dead)
 {
 	int arr[8];
-
 	int x;
 
 	for (x = 0; x < 8; x++) {
@@ -40,7 +38,6 @@ int gen(int i, int c, bool dead)
 	} 
 
 	int total = 0;
-
 	for (x = 0; x < 8; x++) {
 		total += arr[x];
 	}
@@ -51,7 +48,7 @@ int gen(int i, int c, bool dead)
 		return 0;
 	} else if (total > 3) {
 		return 0;
-	} else if (dead && (total == 3)) {
+	} else if (dead && total == 3) {
 		return 1;
 	}
 
@@ -103,7 +100,7 @@ int population()
 	return pop;
 }
 
-void zerolake()
+void zero_lake()
 {
 	int i, c;
 	for (i = 0; i < HEIGHT; i++) {
