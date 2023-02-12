@@ -12,28 +12,28 @@ int gen(int i, int c, bool dead)
 		arr[x] = 0;
 	}
 
-	if (lake[i+1][c] == 1) {
+	if (lake[i+1][c] == 1 && i != HEIGHT - 1) {
 		arr[0] = 1;
 	} 
-	if (lake[i-1][c] == 1) {
+	if (lake[i-1][c] == 1 && i != 0) {
 		arr[1] = 1;
 	} 
-	if (lake[i][c+1] == 1) {
+	if (lake[i][c+1] == 1 && c != WIDTH - 1) {
 		arr[2] = 1;
 	} 
-	if (lake[i][c-1] == 1) {
+	if (lake[i][c-1] == 1 && c != 0) {
 		arr[3] = 1;
 	} 
-	if (lake[i+1][c+1] == 1) {
+	if (lake[i+1][c+1] == 1 && i != HEIGHT - 1 && c != HEIGHT - 1) {
 		arr[4] = 1;
 	} 
-	if (lake[i+1][c-1] == 1) {
+	if (lake[i+1][c-1] == 1 && i != HEIGHT - 1 && c != 0) {
 		arr[5] = 1;
 	} 
-	if (lake[i-1][c+1] == 1) {
+	if (lake[i-1][c+1] == 1 && i != 0 && c != HEIGHT - 1) {
 		arr[6] = 1;
 	} 
-	if (lake[i-1][c-1] == 1) {
+	if (lake[i-1][c-1] == 1 && i != 0 && c != 0) {
 		arr[7] = 1;
 	} 
 
@@ -109,4 +109,3 @@ void zero_lake()
 		}
 	}
 }
-

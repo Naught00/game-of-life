@@ -1,6 +1,7 @@
 #ifndef LAKE_H
 #define LAKE_H
 #include<stdbool.h>
+
 #define WIDTH 80
 #define HEIGHT 40
 

@@ -15,5 +15,6 @@ int main(int argc, char* argv[]) {
 	display();
 
 	printf("%d\n", gen(0,0,false));
+	printf("-1:%d\n", lake[-1][-1]);
 
 }
