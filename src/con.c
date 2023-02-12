@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 	FILE* cell = NULL;
 
 	int speed = 100;
-	int factor = 1;
+	int factor = 2;
 	bool random = false;
 	if (argc > 2) {
 		if (!strcmp(argv[1], "random")) {
