@@ -4,14 +4,14 @@
 #include<time.h>
 #include "lake.h"
 
-void seed() {
+void seed(int factor) {
 	int i, c;
 	for (i = 0; i < HEIGHT; i++) {
 		for (c = 0; c < WIDTH; c++) {
 			srand(time(NULL) + c);
 			int num =  rand() % 100;
 
-			if (num % 17 == 0) {
+			if (num % factor == 0) {
 				lake[i][c] = 1;
 			} else {
 				lake[i][c] = 0;

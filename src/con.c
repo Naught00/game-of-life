@@ -15,10 +15,12 @@ int main(int argc, char* argv[])
 	
 	FILE* f = NULL;
 	int speed = 100;
+	int factor = 1;
 	bool random = false;
 	if (argc > 2) {
 		if (!strcmp(argv[1], "random")) {
 			random = true;
+			factor = atoi(argv[2]);
 		} else {
 			f = fopen(argv[1], "r");
 			speed = atoi(argv[2]);
@@ -28,7 +30,7 @@ int main(int argc, char* argv[])
 	}
 
 	if (random) {
-		seed();
+		seed(factor);
 	} else {
 		load_seed(f);
 	}
