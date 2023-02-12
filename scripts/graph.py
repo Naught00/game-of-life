@@ -1,18 +1,33 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import tikzplotlib
+import csv
 
 def main():
 
-    ag = [0.0, 2.6, 2.0, 6.2, 5.6, 1.6, 3.1, 2.3, 2.6, 1.2]
-    ye = [1983, 1987, 1991, 1995, 1999, 2003, 2007, 2011, 2015, 2019] 
-    plt.plot(ye, ag, label='Finnish Electorate Volatility', marker='o')
-    plt.xlabel('Year')
-    plt.axis([1983, 2019, 0, 7])
-    plt.ylabel('Volatility')
-    plt.title('Finnish Electoral Volatility')
+    data = load_csv()
+    plt.plot(data[0], data[1], label = 'Population over Time')
+    plt.xlabel('Tick')
+    plt.ylabel('Population')
+    plt.title('Population over time')
     tikzplotlib.save("mytikz.tex")
+    plt.show()
 
 
+
+def load_csv():
+    tick = []
+    pop = []
+
+    i = 0
+    c = 0
+    with open('out.csv') as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            print("here")
+            tick.append(int(row[0]))
+            pop.append(int(row[1]))
+
+    return (tick, pop)
 
 main()
