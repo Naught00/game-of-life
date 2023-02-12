@@ -5,6 +5,7 @@
 #include<unistd.h>
 #include<time.h>
 #include "lake.h"
+#include "csv.h"
 #include "seed.h"
 
 void simulate(int speed);
@@ -13,7 +14,8 @@ int main(int argc, char* argv[])
 {
 	zero_lake();
 	
-	FILE* f = NULL;
+	FILE* cell = NULL;
+
 	int speed = 100;
 	int factor = 1;
 	bool random = false;
@@ -22,7 +24,7 @@ int main(int argc, char* argv[])
 			random = true;
 			factor = atoi(argv[2]);
 		} else {
-			f = fopen(argv[1], "r");
+			cell = fopen(argv[1], "r");
 			speed = atoi(argv[2]);
 		}
 	} else {
@@ -32,20 +34,22 @@ int main(int argc, char* argv[])
 	if (random) {
 		seed(factor);
 	} else {
-		load_seed(f);
+		load_seed(cell);
 	}
 
 	simulate(speed);
 
-	if (f != NULL) {
-		fclose(f);
+	if (cell != NULL) {
+		fclose(cell);
 	} 
 
 }
 
 void simulate(int speed)
 {
-	int z = 0;
+	FILE* csv = fopen("out.csv", "w");
+
+	int tick = 0;
 	int i, c;
 	int new[HEIGHT][WIDTH];
 	for (i = 0; i < HEIGHT; i++) {
@@ -54,10 +58,11 @@ void simulate(int speed)
 		}
 	}
 
-	while (z <= 1000) {
+	while (tick <= 100) {
 		system("clear");
 		display();
 		printf("Population: %d\n", population());
+		write_csv(tick, population(), csv);
 		usleep(speed * 1000);
 		for (i = 0; i < HEIGHT; i++) {
 			for (c = 0; c < WIDTH; c++) {
@@ -77,6 +82,7 @@ void simulate(int speed)
 				lake[i][c] = new[i][c];
 			}
 		}
-		z++;
+		tick++;
 	}
+	fclose(csv);
 }

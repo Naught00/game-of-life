@@ -8,5 +8,5 @@ run:
 debug:
 	cc -g *.c
 test:
-	cc tests/test.c src/lake.c src/seed.c
+	cc tests/test.c src/lake.c src/seed.c src/csv.c
 	./a.out
