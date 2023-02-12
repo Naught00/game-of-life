@@ -10,3 +10,5 @@ debug:
 test:
 	cc tests/test.c src/lake.c src/seed.c src/csv.c
 	./a.out
+graph:
+	python3 scripts/graph.py

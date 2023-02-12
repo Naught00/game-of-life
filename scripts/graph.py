@@ -10,7 +10,7 @@ def main():
     plt.xlabel('Tick')
     plt.ylabel('Population')
     plt.title('Population over time')
-    tikzplotlib.save("mytikz.tex")
+    tikzplotlib.save("population.tex")
     plt.show()
 
 
@@ -24,7 +24,6 @@ def load_csv():
     with open('out.csv') as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=',')
         for row in csv_reader:
-            print("here")
             tick.append(int(row[0]))
             pop.append(int(row[1]))
 

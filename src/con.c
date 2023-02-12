@@ -58,7 +58,7 @@ void simulate(int speed)
 		}
 	}
 
-	while (tick <= 100) {
+	while (tick <= 1000) {
 		system("clear");
 		display();
 		printf("Population: %d\n", population());

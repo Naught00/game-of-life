@@ -1,3 +1,13 @@
 main.c.bak
 a.out
 out.csv
+file.html
+mytikz.tex
+tests/mytikz.aux
+tests/mytikz.fdb_latexmk
+tests/mytikz.fls
+tests/mytikz.log
+tests/mytikz.pdf
+tests/mytikz.tex
+todo.txt
+
