@@ -1,0 +1,17 @@
+#!/bin/bash
+wget https://conwaylife.com/patterns/"$1".cells
+
+shopt -s extglob
+for file in *.cells; do
+    sed 's/$'"/`echo \\\r`/" $file > out.temp
+done
+
+for file in *.temp; do
+    sed -i 's/\r$//g' $file
+done
+
+for file in *.temp; do 
+    mv -- "$file" "${file%.temp}.cells"
+done
+
+
