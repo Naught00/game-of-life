@@ -1,10 +1,8 @@
 all:
-	cc -O3 src/*.c
-
+	cc -O3 src/csv.c src/lake.c src/main.c src/seed.c
 run:
 	cc src/*.c 
 	./a.out
-
 debug:
 	cc -g *.c
 test:
