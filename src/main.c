@@ -8,7 +8,7 @@
 #include "csv.h"
 #include "seed.h"
 
-void simulate(int speed);
+void simulate(int speed, int aticks);
 
 int main(int argc, char* argv[])
 {
@@ -18,14 +18,17 @@ int main(int argc, char* argv[])
 
 	int speed = 100;
 	int factor = 2;
+	int aticks = 1000;
 	bool random = false;
-	if (argc > 2) {
+	if (argc > 3) {
 		if (!strcmp(argv[1], "random")) {
 			random = true;
 			factor = atoi(argv[2]);
+			aticks = atoi(argv[3]);
 		} else {
 			cell = fopen(argv[1], "r");
 			speed = atoi(argv[2]);
+			aticks = atoi(argv[3]);
 		}
 	} else {
 		random = true;
@@ -37,7 +40,7 @@ int main(int argc, char* argv[])
 		load_seed(cell);
 	}
 
-	simulate(speed);
+	simulate(speed, aticks);
 
 	if (cell != NULL) {
 		fclose(cell);
@@ -45,7 +48,7 @@ int main(int argc, char* argv[])
 
 }
 
-void simulate(int speed)
+void simulate(int speed, int aticks)
 {
 	FILE* csv = fopen("out.csv", "w");
 
@@ -54,14 +57,14 @@ void simulate(int speed)
 	int new[HEIGHT][WIDTH];
 	copy_lake(new);
 
-	while (tick <= 1000) {
+	while (tick <= aticks) {
 		system("clear");
 		display();
 		printf("Population: %d\n", population());
 		write_csv(tick, population(), csv);
 		usleep(speed * 1000);
 
-		if (tick == 1000) {
+		if (tick == aticks) {
 			clear_all(new);
 			FILE *t = fopen("seeds/test.cell", "r+");
 			load_seed(t);

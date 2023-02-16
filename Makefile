@@ -2,7 +2,7 @@ all:
 	cc -O3 src/*.c
 
 run:
-	cc src/*.c
+	cc src/*.c 
 	./a.out
 
 debug:
