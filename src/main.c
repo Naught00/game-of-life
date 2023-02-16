@@ -64,13 +64,6 @@ void simulate(int speed, int aticks)
 		write_csv(tick, population(), csv);
 		usleep(speed * 1000);
 
-		if (tick == aticks) {
-			clear_all(new);
-			FILE *t = fopen("seeds/test.cell", "r+");
-			load_seed(t);
-			copy_lake(new);
-		}
-
 		for (i = 0; i < HEIGHT; i++) {
 			for (c = 0; c < WIDTH; c++) {
 				if (lake[i][c] == 1) {
