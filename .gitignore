@@ -10,4 +10,5 @@ tests/mytikz.log
 tests/mytikz.pdf
 tests/mytikz.tex
 todo.txt
-
+seeds/test
+src/command.c

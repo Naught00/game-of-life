@@ -1,6 +1,10 @@
 #include<stdio.h>
+#include<unistd.h>
+#include<stdlib.h>
+#include<string.h>
 #include "lake.h"
 
+void copy_lake(int new[HEIGHT][WIDTH]);
 int lake[HEIGHT][WIDTH];
 
 int gen(int i, int c, bool dead)
@@ -55,7 +59,8 @@ int gen(int i, int c, bool dead)
 	return 0;
 }
 
-void display() {
+void display()
+{
 	int i, c;
 	for (i = 0; i < HEIGHT; i++) {
 		for (c = 0; c < WIDTH; c++) {
@@ -108,4 +113,20 @@ void zero_lake()
 			lake[i][c] = 0;
 		}
 	}
+}
+
+void copy_lake(int new[HEIGHT][WIDTH])
+{
+	int i, c;
+	for (i = 0; i < HEIGHT; i++) {
+		for (c = 0; c < WIDTH; c++) {
+			new[i][c] = lake[i][c];
+		}
+	}
+}
+
+void clear_all(int new[HEIGHT][WIDTH])
+{
+	memset(lake, 0, sizeof(lake[0][0]) * WIDTH * HEIGHT);
+	memset(lake, 0, sizeof(new[0][0]) * WIDTH * HEIGHT);
 }

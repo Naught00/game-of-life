@@ -52,11 +52,7 @@ void simulate(int speed)
 	int tick = 0;
 	int i, c;
 	int new[HEIGHT][WIDTH];
-	for (i = 0; i < HEIGHT; i++) {
-		for (c = 0; c < WIDTH; c++) {
-			new[i][c] = lake[i][c];
-		}
-	}
+	copy_lake(new);
 
 	while (tick <= 1000) {
 		system("clear");
@@ -64,6 +60,14 @@ void simulate(int speed)
 		printf("Population: %d\n", population());
 		write_csv(tick, population(), csv);
 		usleep(speed * 1000);
+
+		if (tick == 1000) {
+			clear_all(new);
+			FILE *t = fopen("seeds/test.cell", "r+");
+			load_seed(t);
+			copy_lake(new);
+		}
+
 		for (i = 0; i < HEIGHT; i++) {
 			for (c = 0; c < WIDTH; c++) {
 				if (lake[i][c] == 1) {

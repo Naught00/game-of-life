@@ -5,6 +5,7 @@
 #include "lake.h"
 
 void seed(int factor) {
+
 	int i, c;
 	for (i = 0; i < HEIGHT; i++) {
 		for (c = 0; c < WIDTH; c++) {
